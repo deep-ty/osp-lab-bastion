@@ -1,0 +1,28 @@
+---
+
+# To install Tomcat
+- name: Install Tomcat
+  yum: 
+    name: tomcat
+    state: latest
+
+# To start Tomcat at linux boot
+- name: Start tomcat at Linux Boot
+  service:
+    name: tomcat
+    enabled: yes
+
+# To create a web dir ROOT
+- name: Create Tomcat Web Dir
+  file:
+    path: "{{ tomcat_root_dir }}"
+    state: directory
+
+# To copy jinja2 template to index.html
+- name: Copy index.html.j2 to tomcat web directory
+  template:
+    src: index.html.j2
+    dest: "{{ tomcat_root_dir }}/index.html"
+    mode: 0644
+  notify: restart tomcat
+

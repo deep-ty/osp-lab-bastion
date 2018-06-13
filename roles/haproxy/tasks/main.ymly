@@ -1,0 +1,15 @@
+---
+# A role to Install and configure HAProxy
+
+- name: Install HAProxy
+  yum:
+    name: haproxy
+    state: latest
+
+- name: Configure HAProxy
+  template:
+    src: haproxy.cfg.j2
+    dest: "/etc/haproxy/haproxy.cfg"
+
+- name: Start HAProxy
+  notify: "restart haproxy"

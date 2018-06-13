@@ -1,0 +1,51 @@
+---
+#- hosts: jumpbox
+#  gather_facts: true
+#  roles:
+#  - name: osp-facts
+
+- hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+  - name: Install Repos
+    include_role:
+      name: common
+    tags:
+      - setup_common
+
+# To Install Postgres
+- hosts: appdbs
+  gather_facts: false
+  become: true
+  tasks:
+  - name: Install Postgres
+    include_role:
+      name: postgres
+    tags:
+      - install_postgres
+
+# To Install HAProxy
+- hosts: frontends
+  gather_facts: false
+  become: true
+  become_user: ec2-user
+  tasks:
+  - name: Setup HAProxy
+    include_role:
+      name: haproxy
+    tags:
+      - install_haproxy
+
+# To Install Tomcat
+- hosts: apps
+  gather_facts: false
+  become: true
+  become_user: ec2-user
+  tasks:
+  - name: Setup Tomcat
+    include_role:
+      name: apache
+    tags:
+      - install_tomcat
+

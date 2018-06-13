@@ -1,0 +1,4 @@
+---
+pg_version: 9.5
+#pg_rhellink=https://yum.postgresql.org/9.4/redhat/rhel-latest-x86_64/pgdg-redhat94-9.4-3.noarch.rpm
+#pg_rhel_link=
